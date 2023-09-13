@@ -1,0 +1,7 @@
+build*/*
+.cache/*
+tests/*
+!tests/*.cpp
+!tests/*.txt
+!tests/*.fasta
+Doxyfile
