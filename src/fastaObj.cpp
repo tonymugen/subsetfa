@@ -17,4 +17,44 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/// Extract a subset of records from a multi-sequence FASTA file
+/** \file
+ * \author Anthony J. Greenberg
+ * \copyright Copyright (c) 2023 Anthony J. Greenberg
+ * \version 0.1
+ *
+ * Implementation of the class that holds FASTA file data.
+ *
+ */
+
+#include <cstddef>
+#include <string>
+#include <unordered_map>
+#include <fstream>
+
+#include "fastaObj.hpp"
+
+using namespace BayesicSpace;
+
+Fasta::Fasta(const std::string &inFileName) {
+	std::fstream inFASTA;
+	std::string eachLine;
+	inFASTA.open(inFileName, std::ios::in);
+	std::getline(inFASTA, eachLine);
+	if (eachLine.front() != '>') {
+		throw std::string("ERROR: first line of a FASTA file must begin with '>' in ") + std::string( static_cast<const char*>(__PRETTY_FUNCTION__) );
+	}
+	std::string currentHeader = eachLine.substr(1); // remove the starting '>'
+	std::string sequence;
+	while ( std::getline(inFASTA, eachLine) ) {
+		if (eachLine.front() == '>') {
+			fastaData_.emplace(currentHeader, sequence);
+			currentHeader = eachLine.substr(1);
+			sequence.clear();
+			continue;
+		}
+		sequence.append(eachLine);
+	}
+	inFASTA.close();
+}
 

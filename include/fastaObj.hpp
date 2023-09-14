@@ -17,5 +17,65 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/// Extract a subset of records from a multi-sequence FASTA file
+/** \file
+ * \author Anthony J. Greenberg
+ * \copyright Copyright (c) 2023 Anthony J. Greenberg
+ * \version 0.1
+ *
+ * Definitions and interface documentation for the class that holds FASTA file data.
+ *
+ */
+
 #pragma once
 
+#include <cstddef>
+#include <string>
+#include <unordered_map>
+
+namespace BayesicSpace {
+	class Fasta;
+
+	/** \brief Fasta file data
+	 *
+	 * Data read from a FASTA multi-sequence file. Sequence portions can be on multiple lines and do not have to be the same length for each sequence.
+	 */
+	class Fasta {
+	public:
+		/** \brief Default constructor */
+		Fasta() = default;
+		/** \brief Constructor with input file name 
+		 *
+		 * Takes the input file name and reads the data.
+		 *
+		 * \param[in] inFileName input FASTA file name
+		 */
+		Fasta(const std::string &inFileName);
+		/** \brief Copy constructor 
+		 *
+		 * \param[in] toCopy object to copy
+		 * \return copied object
+		 */
+		Fasta(const Fasta &toCopy) = default;
+		/** \brief Copy assignment operator 
+		 *
+		 * \param[in] toCopy object to copy
+		 * \return copied object
+		 */
+		Fasta& operator=(const Fasta &toCopy) = default;
+		/** \brief Move constructor 
+		 *
+		 * \param[in] toMove object to move
+		 * \return moved object
+		 */
+		Fasta(Fasta &&toCopy) = default;
+		/** \brief Move assignment operator 
+		 *
+		 * \param[in] toMove object to move
+		 * \return moved object
+		 */
+		Fasta& operator=(Fasta &&toMove) = default;
+	protected:
+		std::unordered_map<std::string, std::string> fastaData_;
+	};
+}
