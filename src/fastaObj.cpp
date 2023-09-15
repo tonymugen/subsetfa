@@ -41,6 +41,10 @@ Fasta::Fasta(const std::string &inFileName) {
 	std::string eachLine;
 	inFASTA.open(inFileName, std::ios::in);
 	std::getline(inFASTA, eachLine);
+	if ( eachLine.empty() ) {
+		throw std::string("ERROR: input FASTA file ") + inFileName + std::string(" empty in ")
+										+ std::string( static_cast<const char*>(__PRETTY_FUNCTION__) );
+	}
 	if (eachLine.front() != '>') {
 		throw std::string("ERROR: first line of a FASTA file must begin with '>' in ") + std::string( static_cast<const char*>(__PRETTY_FUNCTION__) );
 	}
@@ -58,3 +62,13 @@ Fasta::Fasta(const std::string &inFileName) {
 	inFASTA.close();
 }
 
+std::unordered_map<std::string, std::string> Fasta::subset(const std::vector<std::string> &headerList) {
+	std::unordered_map<std::string, std::string> subset;
+	for (const auto &eachHeader : headerList) {
+		auto search = fastaData_.find(eachHeader);
+		if ( search != fastaData_.end() ) {
+			subset.emplace(search->first, search->second);
+		}
+	}
+	return subset;
+}

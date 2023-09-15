@@ -178,6 +178,7 @@ install(TARGETS subsetfa
 # library
 add_library(fasta
 	src/fastaObj.cpp
+	src/utilities.cpp
 )
 target_include_directories(fasta
 	PRIVATE include

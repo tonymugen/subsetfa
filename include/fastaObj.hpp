@@ -32,6 +32,7 @@
 #include <cstddef>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace BayesicSpace {
 	class Fasta;
@@ -75,6 +76,14 @@ namespace BayesicSpace {
 		 * \return moved object
 		 */
 		Fasta& operator=(Fasta &&toMove) = default;
+		/** \brief Subset the records 
+		 *
+		 * Return a subset of FASTA records according to a vector of headers.
+		 *
+		 * \param[in] headerList vector of FASTA headers to extract
+		 * \return record subset
+		 */
+		std::unordered_map<std::string, std::string> subset(const std::vector<std::string> &headerList);
 	protected:
 		std::unordered_map<std::string, std::string> fastaData_;
 	};

@@ -17,45 +17,38 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/// Unit tests
+/// Utilities for FASTA file processing
 /** \file
  * \author Anthony J. Greenberg
  * \copyright Copyright (c) 2023 Anthony J. Greenberg
  * \version 0.1
  *
- * Unit tests using Catch2.
+ * Definitions and interface documentation various utility functions.
  *
  */
 
 #include <string>
 #include <unordered_map>
-#include <vector>
 
-#include "fastaObj.hpp"
-#include "utilities.hpp"
+#pragma once
 
-#include "catch2/catch_test_macros.hpp"
-#include "catch2/matchers/catch_matchers.hpp"
-#include "catch2/matchers/catch_matchers_string.hpp"
-
-TEST_CASE("Can subset FASTA records", "[subset]") {
-	SECTION("Exceptions on wrong data") {
-		const std::string emptyFile("../tests/empty.fasta");
-		REQUIRE_THROWS_WITH(BayesicSpace::Fasta(emptyFile), 
-				Catch::Matchers::StartsWith("ERROR: input FASTA file "));
-		const std::string wrongFormat("../tests/wrong.fasta");
-		REQUIRE_THROWS_WITH(BayesicSpace::Fasta(wrongFormat), 
-				Catch::Matchers::StartsWith("ERROR: first line of a FASTA file must begin with "));
-	}
-	SECTION("Operation on correct data") {
-		const std::string testFAfile("../tests/test.fasta");
-		BayesicSpace::Fasta testFA(testFAfile);
-		const std::vector<std::string>subset{"B.FR.1983.LAI-J19.A07867",
-											"B.US.1997.ARES2.AB078005",
-											"randomValue",
-											"01B.MM.1999.mCSW104.AB097867"
-		};
-		std::unordered_map<std::string, std::string> vecResult{testFA.subset(subset)};
-		REQUIRE(vecResult.size() == subset.size() - 1);
-	}
+namespace BayesicSpace {
+	/** \brief Command line parser
+	 *
+	 * Maps flags to values. Flags assumed to be of the form `--flag-name value`.
+	 *
+	 * \param[in] argc size of the `argv` array
+	 * \param[in] argv command line input array
+	 * \param[out] cli map of tags to values
+	 */
+	void parseCL(int &argc, char **argv, std::unordered_map<std::string, std::string> &cli);
+	/** \brief Extract parameters from parsed command line interface flags
+	 *
+	 * Extracts needed variable values, indexed by `std::string` encoded variable names.
+	 *
+	 * \param[in] parsedCLI flag values parsed from the command line
+	 * \param[out] stringVariables indexed `std::string` variables for use by `main()`
+	 */
+	void extractCLinfo(const std::unordered_map<std::string, std::string> &parsedCLI, std::unordered_map<std::string, std::string> &stringVariables);
 }
+
