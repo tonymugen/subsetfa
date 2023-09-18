@@ -33,6 +33,15 @@
 #pragma once
 
 namespace BayesicSpace {
+	/** \brief Save the subset as FASTA 
+	 * 
+	 * Save the provided data as a multi-record FASTA file. Sequence portions on one line.
+	 * If the file with the given name exists, it is overwritten.
+	 *
+	 * \param[in] subsetRecords records to be saved
+	 * \param[in] outFileName name of the output file
+	 */
+	void saveAsFASTA(const std::unordered_map<std::string, std::string> &subsetRecords, const std::string &outFileName);
 	/** \brief Command line parser
 	 *
 	 * Maps flags to values. Flags assumed to be of the form `--flag-name value`.

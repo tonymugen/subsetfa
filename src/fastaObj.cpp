@@ -59,10 +59,11 @@ Fasta::Fasta(const std::string &inFileName) {
 		}
 		sequence.append(eachLine);
 	}
+	fastaData_.emplace(currentHeader, sequence);
 	inFASTA.close();
 }
 
-std::unordered_map<std::string, std::string> Fasta::subset(const std::vector<std::string> &headerList) {
+std::unordered_map<std::string, std::string> Fasta::subset(const std::vector<std::string> &headerList) const {
 	std::unordered_map<std::string, std::string> subset;
 	for (const auto &eachHeader : headerList) {
 		auto search = fastaData_.find(eachHeader);
@@ -71,4 +72,17 @@ std::unordered_map<std::string, std::string> Fasta::subset(const std::vector<std
 		}
 	}
 	return subset;
+}
+std::unordered_map<std::string, std::string> Fasta::subset(const std::string &headerFileName) const {
+	std::fstream inSubsetList;
+	inSubsetList.open(headerFileName, std::ios::in);
+	std::vector<std::string> headers;
+	std::string eachLine;
+	while ( std::getline(inSubsetList, eachLine) ) {
+		if ( !eachLine.empty() ) {
+			headers.emplace_back( eachLine.substr( static_cast<size_t>(eachLine.at(0) == '>') ) );      // remove starting '>' if exists
+		}
+	}
+	inSubsetList.close();
+	return this->subset(headers);
 }

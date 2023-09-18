@@ -30,8 +30,19 @@
 #include <string>
 #include <array>
 #include <unordered_map>
+#include <fstream>
 
 #include "utilities.hpp"
+
+void BayesicSpace::saveAsFASTA(const std::unordered_map<std::string, std::string> &subsetRecords, const std::string &outFileName) {
+	std::fstream outFASTA;
+	outFASTA.open(outFileName, std::ios::out | std::ios::trunc);
+	for (const auto &eachRecord : subsetRecords) {
+		outFASTA << ">" << eachRecord.first << "\n" << eachRecord.second << "\n";
+	}
+	outFASTA.close();
+}
+
 
 void BayesicSpace::parseCL(int &argc, char **argv, std::unordered_map<std::string, std::string> &cli) {
 	// set to true after encountering a flag token (the characters after the dash)

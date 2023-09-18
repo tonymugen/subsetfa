@@ -53,6 +53,8 @@ int main(int argc, char *argv[]) {
 		BayesicSpace::extractCLinfo(clInfo, stringVariables);
 
 		BayesicSpace::Fasta fastaData( stringVariables.at("input-fasta") );
+		std::unordered_map<std::string, std::string> subset{fastaData.subset( stringVariables.at("header-list") )};
+		BayesicSpace::saveAsFASTA( subset, stringVariables.at("out-file") );
 	} catch(std::string &problem) {
 		std::cerr << problem << "\n";
 		std::cerr << cliHelp;

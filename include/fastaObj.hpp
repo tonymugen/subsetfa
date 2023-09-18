@@ -76,6 +76,11 @@ namespace BayesicSpace {
 		 * \return moved object
 		 */
 		Fasta& operator=(Fasta &&toMove) = default;
+		/** \brief Number of input records
+		 *
+		 * return number of FASTA sequences in input
+		 */
+		size_t size() const {return fastaData_.size();};
 		/** \brief Subset the records 
 		 *
 		 * Return a subset of FASTA records according to a vector of headers.
@@ -83,7 +88,15 @@ namespace BayesicSpace {
 		 * \param[in] headerList vector of FASTA headers to extract
 		 * \return record subset
 		 */
-		std::unordered_map<std::string, std::string> subset(const std::vector<std::string> &headerList);
+		std::unordered_map<std::string, std::string> subset(const std::vector<std::string> &headerList) const;
+		/** \brief Subset the records from file 
+		 *
+		 * Return a subset of FASTA records according to the list in the provided file.
+		 *
+		 * \param[in] headerFileName name of the file with FASTA headers to extract
+		 * \return record subset
+		 */
+		std::unordered_map<std::string, std::string> subset(const std::string &headerFileName) const;
 	protected:
 		std::unordered_map<std::string, std::string> fastaData_;
 	};
