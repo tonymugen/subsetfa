@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 project(subsetfa
-	VERSION 0.1
+	VERSION 0.5
 	LANGUAGES CXX
 )
 include(CheckCXXCompilerFlag)

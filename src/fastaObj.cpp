@@ -21,7 +21,7 @@
 /** \file
  * \author Anthony J. Greenberg
  * \copyright Copyright (c) 2023 Anthony J. Greenberg
- * \version 0.1
+ * \version 0.5
  *
  * Implementation of the class that holds FASTA file data.
  *

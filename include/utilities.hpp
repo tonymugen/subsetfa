@@ -21,7 +21,7 @@
 /** \file
  * \author Anthony J. Greenberg
  * \copyright Copyright (c) 2023 Anthony J. Greenberg
- * \version 0.1
+ * \version 0.5
  *
  * Definitions and interface documentation various utility functions.
  *

@@ -21,7 +21,7 @@
 /** \file
  * \author Anthony J. Greenberg
  * \copyright Copyright (c) 2023 Anthony J. Greenberg
- * \version 0.1
+ * \version 0.5
  *
  * Uses the fastaObj methods to extract records from a multi-record FASTA file.
  * Records must be listed in a separate file as FASTA headers that match some in the FASTA file.
